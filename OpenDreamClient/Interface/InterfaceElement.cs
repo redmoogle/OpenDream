@@ -16,8 +16,7 @@ namespace OpenDreamClient.Interface
 
         public void PopulateElementDescriptor(MappingDataNode node, ISerializationManager serializationManager)
         {
-            var result = (ElementDescriptor)serializationManager.Read(ElementDescriptor.GetType(), node);
-            ElementDescriptor = serializationManager.Copy(result, ElementDescriptor);
+            serializationManager.Read(ElementDescriptor.GetType(), node, value: ElementDescriptor);
             UpdateElementDescriptor();
         }
 

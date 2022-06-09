@@ -83,6 +83,20 @@ window "outputwindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
+		is-visible = false
+	elem "button1"
+		type = BUTTON
+		pos = 5,3
+		size = 100x30
+		text = "Button 1"
+		is-visible = true
+	elem "button2"
+		type = BUTTON
+		pos = 5,3
+		size = 100x30
+		text = "Button 2"
+		is-disabled = true
+		is-visible = false
 	elem "input"
 		type = INPUT
 		pos = 0,460
