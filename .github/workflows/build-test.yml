@@ -57,6 +57,17 @@ jobs:
         tar -czvf output_release/DMCompiler_${{ matrix.os == 'windows-latest' && 'win-x64' || 'linux-x64' }}.tar.gz -C output_release DMCompiler_${{ matrix.os == 'windows-latest' && 'win-x64' || 'linux-x64' }}
         tar -czvf output_release/OpenDreamServer_${{ matrix.os == 'windows-latest' && 'win-x64' || 'linux-x64' }}.tar.gz -C output_release OpenDreamServer_${{ matrix.os == 'windows-latest' && 'win-x64' || 'linux-x64' }}
         tar -czvf output_tools/OpenDreamServer_TOOLS_${{ matrix.os == 'windows-latest' && 'win-x64' || 'linux-x64' }}.tar.gz -C output_tools OpenDreamServer_${{ matrix.os == 'windows-latest' && 'win-x64' || 'linux-x64' }}
+    - name: Setup BuildX
+      uses: docker/setup-buildx-action@v3
+    - name: Build Docker Image
+      run: |
+        docker buildx build --platform linux/amd64 -t opendream:latest .
+        docker save opendream:latest | gzip > opendream.tar.gz
+    - name: Upload Docker Image
+      uses: actions/upload-artifact@v3
+      with:
+        name: opendream-dockerized
+        path: opendream.tar.gz
     - name: Upload artifact
       if: github.event_name == 'push'
       uses: actions/upload-artifact@v3
